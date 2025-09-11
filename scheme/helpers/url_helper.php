@@ -84,7 +84,7 @@ if ( ! function_exists('redirect'))
 	 * @param boolean $permanent
 	 * @return string
 	 */
-	function redirect($uri = '', $permanent = false, $exit = true)
+	function redirect($uri = '/', $permanent = false, $exit = true)
 	{
 		if ( ! preg_match('#^(\w+:)?//#i', $uri))
 		{
@@ -94,7 +94,10 @@ if ( ! function_exists('redirect'))
 		{
 			header('Location: ' . $uri, true, ($permanent === true) ? 301 : 302);
 		}
-		($exit === true) ?? exit();
+		if ($exit === true) {
+			exit();
+		}
+		return $uri;
 	}
 }
 

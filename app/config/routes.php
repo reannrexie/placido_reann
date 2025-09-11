@@ -40,7 +40,9 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 | -------------------------------------------------------------------
 | Here is where you can register web routes for your application.
 |
-|
 */
 
-$router->get('/profile/{fname}/{lname}', 'Welcome::Profile');
+$router->get('/', 'UsersController::index');
+$router->match('/users/create', 'UsersController::create', ['GET', 'POST']);
+$router->match('/users/update/{id}', 'UsersController::update', ['GET', 'POST']);
+$router->get('/users/delete/{id}', 'UsersController::delete');
