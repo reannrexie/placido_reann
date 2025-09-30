@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up</title>
+  <title>Create User</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-[#CDD7DF] via-[#A6BED1] to-[#8AA7BC]">
@@ -15,17 +15,25 @@
 
   <!-- Card Container -->
   <div class="relative backdrop-blur-xl bg-white/20 border border-white/30 shadow-2xl rounded-3xl p-8 w-full max-w-md animate-fadeIn">
-    
+
     <!-- Title -->
     <h1 class="text-4xl font-extrabold text-center text-[#0D273D] mb-6 drop-shadow-lg">✨ Users Creation View</h1>
 
+    <!-- ✅ Error Message -->
+    <?php if (!empty($error)): ?>
+      <div class="bg-red-100 text-red-800 px-4 py-2 rounded-md mb-4 text-sm">
+        <?= $error ?>
+      </div>
+    <?php endif; ?>
+
     <!-- Form -->
-    <form action="<?= site_url('users/create'); ?>" method="POST" class="space-y-5">
-      
+    <form action="<?= site_url('users/create/'); ?>" method="POST" class="space-y-5">
+
       <!-- Username -->
       <div>
         <label for="username" class="block text-sm font-semibold text-[#0D273D]/90">Username</label>
         <input type="text" id="username" name="username" required
+          value="<?= isset($username) ? html_escape($username) : '' ?>"
           class="mt-2 block w-full px-4 py-3 rounded-xl bg-white/70 border border-[#8AA7BC] text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-[#3E6985] focus:border-[#3E6985] transition">
       </div>
 
@@ -33,7 +41,33 @@
       <div>
         <label for="email" class="block text-sm font-semibold text-[#0D273D]/90">Email</label>
         <input type="email" id="email" name="email" required
+          value="<?= isset($email) ? html_escape($email) : '' ?>"
           class="mt-2 block w-full px-4 py-3 rounded-xl bg-white/70 border border-[#8AA7BC] text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-[#0D273D] focus:border-[#0D273D] transition">
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label for="password" class="block text-sm font-semibold text-[#0D273D]/90">Password</label>
+        <input type="password" id="password" name="password" required
+          class="mt-2 block w-full px-4 py-3 rounded-xl bg-white/70 border border-[#8AA7BC] text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-[#0D273D] focus:border-[#0D273D] transition">
+      </div>
+
+      <!-- Confirm Password -->
+      <div>
+        <label for="confirm_password" class="block text-sm font-semibold text-[#0D273D]/90">Confirm Password</label>
+        <input type="password" id="confirm_password" name="confirm_password" required
+          class="mt-2 block w-full px-4 py-3 rounded-xl bg-white/70 border border-[#8AA7BC] text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-[#0D273D] focus:border-[#0D273D] transition">
+      </div>
+
+      <!-- Role -->
+      <div>
+        <label for="role" class="block text-sm font-semibold text-[#0D273D]/90">Role</label>
+        <select id="role" name="role" required
+          class="mt-2 block w-full px-4 py-3 rounded-xl bg-white/70 border border-[#8AA7BC] text-gray-900 focus:ring-2 focus:ring-[#3E6985] focus:border-[#3E6985] transition">
+          <option value="">-- Select Role --</option>
+          <option value="admin" <?= isset($role) && $role=="admin" ? 'selected' : '' ?>>Admin</option>
+          <option value="user" <?= isset($role) && $role=="user" ? 'selected' : '' ?>>User</option>
+        </select>
       </div>
 
       <!-- Buttons -->
@@ -41,11 +75,11 @@
         <!-- Submit -->
         <button type="submit"
           class="flex-1 bg-gradient-to-r from-[#3E6985] to-[#0D273D] text-white font-semibold py-3 px-4 rounded-xl shadow-lg hover:opacity-90 hover:scale-105 transform transition duration-300 animate-pulse-slow">
-          🚀 Submit
+          🚀 Create User
         </button>
 
         <!-- Cancel -->
-        <a href="<?= site_url(''); ?>"
+        <a href="<?= site_url('/users'); ?>"
           class="flex-1 text-center bg-white/60 text-[#0D273D] font-semibold py-3 px-4 rounded-xl shadow hover:bg-white/80 hover:scale-105 transform transition duration-300">
           ❌ Cancel
         </a>
